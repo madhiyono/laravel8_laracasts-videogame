@@ -13,7 +13,7 @@
     @forelse ($recentlyReviewed as $game)
         <div class="game bg-gray-800 rounded-lg shadow-md flex px-6 py-6">
             <div class="relative flex-none">
-                <a href="{{ route('games.show', $game['slug']) }}">
+                <a href="#">
                     @if (array_key_exists('cover', $game))
                         <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game cover" class="w-20 lg:w-48 hover:opacity-75 transition ease-in-out duration-150">
                     @else
@@ -29,7 +29,7 @@
                 @endisset
             </div>
             <div class="ml-6 lg:ml-12">
-                <a href="{{ route('games.show', $game['slug']) }}" class="block text-lg font-semibold leading-tight hover:text-gray-400 mt-0 lg:mt-2">
+                <a href="#" class="block text-lg font-semibold leading-tight hover:text-gray-400 mt-0 lg:mt-2">
                     {{ $game['name'] }}
                 </a>
                 <div class="text-gray-400 mt-1">

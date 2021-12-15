@@ -3,7 +3,7 @@
         <div class="game">
             <div class="flex justify-center md:block">
                 <div class="relative inline-block">
-                    <a href="{{ route('games.show', $game['slug']) }}">
+                    <a href="#">
                         @if (array_key_exists('cover', $game))
                             <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game cover" class="hover:opacity-75 transition ease-in-out duration-150">
                         @else
@@ -19,7 +19,7 @@
                     @endisset
                 </div>
             </div>
-            <a href="{{ route('games.show', $game['slug']) }}" class="block text-base text-center md:text-left font-semibold leading-tight hover:text-gray-400 mt-8">
+            <a href="#" class="block text-base text-center md:text-left font-semibold leading-tight hover:text-gray-400 mt-8">
                 {{ $game['name'] }}
             </a>
             <div class="text-gray-400 mt-1 text-center md:text-left">
