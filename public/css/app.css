@@ -447,10 +447,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
 }
-.mx-6 {
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-}
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -569,12 +565,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .flex-none {
   flex: none;
 }
-.flex-auto {
-  flex: 1 1 auto;
-}
-.shrink {
-  flex-shrink: 1;
-}
 @-webkit-keyframes pulse {
 
   50% {
@@ -593,9 +583,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-.flex-row {
-  flex-direction: row;
 }
 .flex-col {
   flex-direction: column;
@@ -639,9 +626,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-.overflow-x-auto {
-  overflow-x: auto;
 }
 .rounded-full {
   border-radius: 9999px;
@@ -717,9 +701,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .pb-8 {
   padding-bottom: 2rem;
-}
-.pb-6 {
-  padding-bottom: 1.5rem;
 }
 .text-center {
   text-align: center;
