@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto px-4">
-        <div class="game-details border-b border-gray-800 pb-12 flex flex-col lg:flex-row">
+        <div class="game-details pb-12 flex flex-col lg:flex-row">
             <div class="flex-none">
                 <img src="{{ $game['cover'] }}" alt="game cover">
             </div>
@@ -94,7 +94,7 @@
         </div> {{-- end game-details --}}
 
         @if ($game['screenshots'])
-            <div class="images-container border-b border-gray-800 pb-12 mt-8">
+            <div class="images-container border-t border-gray-800 pt-8 mb-12">
                 <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Screenshots</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-8">
                     @foreach ($game['screenshots'] as $screenshot)
@@ -109,7 +109,7 @@
         @endif
         
         @if ($game['similar_games'])
-            <div class="similar-games-container mt-8">
+            <div class="similar-games-container border-t border-gray-800 pt-8">
                 <h2 class="text-blue-500 uppercase tracking-wide font-semibold mb-8">Similar Games</h2>
                 <div class="similar-games text-sm grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-6 gap-12">
                     @foreach ($game['similar_games'] as $game)
