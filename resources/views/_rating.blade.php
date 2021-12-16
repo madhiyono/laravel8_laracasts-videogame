@@ -43,5 +43,4 @@
     @endif
 
     @if ($event) }) @endif
-
 </script>
