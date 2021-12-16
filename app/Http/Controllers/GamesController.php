@@ -68,11 +68,13 @@ class GamesController extends Controller
             'platforms' => array_key_exists('platforms', $game) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : null,
             'rating' => isset($game['rating']) ? round($game['rating']) : '0',
             'aggregated_rating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']) : '0',
-            'official' => collect($game['websites'])->where('category', 1)->pluck('url')->implode(null),
-            'instagram' => collect($game['websites'])->where('category', 8)->pluck('url')->implode(null),
-            'twitter' => collect($game['websites'])->where('category', 5)->pluck('url')->implode(null),
-            'facebook' => collect($game['websites'])->where('category', 4)->pluck('url')->implode(null),
-            'trailer' => 'https://youtube.com/watch/'.$game['videos'][0]['video_id'],
+            'websites' => array_key_exists('websites', $game) ? [
+                'official' => collect($game['websites'])->where('category', 1)->pluck('url')->implode(null),
+                'instagram' => collect($game['websites'])->where('category', 8)->pluck('url')->implode(null),
+                'twitter' => collect($game['websites'])->where('category', 5)->pluck('url')->implode(null),
+                'facebook' => collect($game['websites'])->where('category', 4)->pluck('url')->implode(null),
+            ] : null,
+            'trailer' => array_key_exists('videos', $game) ? 'https://youtube.com/watch/'.$game['videos'][0]['video_id'] : null,
             'screenshots' => array_key_exists('screenshots', $game) ? collect($game['screenshots'])->map(function ($screenshot) {
                 return [
                     'big' => Str::replaceFirst('thumb', 'screenshot_big', $screenshot['url']),
