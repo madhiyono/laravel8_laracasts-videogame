@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -54,8 +55,38 @@ class GamesController extends Controller
         abort_if(!$game, 404);
 
         return view('show', [
-            'game' => $game[0],
+            'game' => $this->formatGameForView($game[0]),
         ]);
+    }
+
+    private function formatGameForView($game)
+    {
+        return collect($game)->merge([
+            'cover' => array_key_exists('cover', $game) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : 'https://images.igdb.com/igdb/image/upload/t_cover_big/nocover.png',
+            'genres' => array_key_exists('genres', $game) ? collect($game['genres'])->pluck('name')->implode(', ') . ' ·' : null,
+            'involved_companies' => array_key_exists('involved_companies', $game) ? collect($game['involved_companies'])->pluck('company')->pluck('name')->implode(', ') . ' ·' : null,
+            'platforms' => array_key_exists('platforms', $game) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : null,
+            'rating' => isset($game['rating']) ? round($game['rating']).'%' : '0%',
+            'aggregated_rating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']).'%' : '0%',
+            'official' => collect($game['websites'])->where('category', 1)->pluck('url')->implode(null),
+            'instagram' => collect($game['websites'])->where('category', 8)->pluck('url')->implode(null),
+            'twitter' => collect($game['websites'])->where('category', 5)->pluck('url')->implode(null),
+            'facebook' => collect($game['websites'])->where('category', 4)->pluck('url')->implode(null),
+            'trailer' => 'https://youtube.com/watch/'.$game['videos'][0]['video_id'],
+            'screenshots' => array_key_exists('screenshots', $game) ? collect($game['screenshots'])->map(function ($screenshot) {
+                return [
+                    'big' => Str::replaceFirst('thumb', 'screenshot_big', $screenshot['url']),
+                    'huge' => Str::replaceFirst('thumb', 'screenshot_huge', $screenshot['url']),
+                ];
+            })->take(9) : null,
+            'similar_games' => array_key_exists('similar_games', $game) ? collect($game['similar_games'])->map(function ($game) {
+                return collect($game)->merge([
+                    'cover' => array_key_exists('cover', $game) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : 'https://images.igdb.com/igdb/image/upload/t_cover_big/nocover.png',
+                    'rating' => isset($game['rating']) ? round($game['rating']).'%' : '0%',
+                    'platforms' => array_key_exists('platforms', $game) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : null,
+                ]);
+            })->take(6) : null,
+        ])->toArray();
     }
 
     /**
