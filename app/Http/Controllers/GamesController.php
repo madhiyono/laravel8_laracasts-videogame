@@ -66,8 +66,8 @@ class GamesController extends Controller
             'genres' => array_key_exists('genres', $game) ? collect($game['genres'])->pluck('name')->implode(', ') . ' ·' : null,
             'involved_companies' => array_key_exists('involved_companies', $game) ? collect($game['involved_companies'])->pluck('company')->pluck('name')->implode(', ') . ' ·' : null,
             'platforms' => array_key_exists('platforms', $game) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : null,
-            'rating' => isset($game['rating']) ? round($game['rating']).'%' : '0%',
-            'aggregated_rating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']).'%' : '0%',
+            'rating' => isset($game['rating']) ? round($game['rating']) : '0',
+            'aggregated_rating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']) : '0',
             'official' => collect($game['websites'])->where('category', 1)->pluck('url')->implode(null),
             'instagram' => collect($game['websites'])->where('category', 8)->pluck('url')->implode(null),
             'twitter' => collect($game['websites'])->where('category', 5)->pluck('url')->implode(null),
@@ -82,7 +82,7 @@ class GamesController extends Controller
             'similar_games' => array_key_exists('similar_games', $game) ? collect($game['similar_games'])->map(function ($game) {
                 return collect($game)->merge([
                     'cover' => array_key_exists('cover', $game) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : 'https://images.igdb.com/igdb/image/upload/t_cover_big/nocover.png',
-                    'rating' => isset($game['rating']) ? round($game['rating']).'%' : '0%',
+                    'rating' => isset($game['rating']) ? round($game['rating']) : '0',
                     'platforms' => array_key_exists('platforms', $game) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : null,
                 ]);
             })->take(6) : null,
